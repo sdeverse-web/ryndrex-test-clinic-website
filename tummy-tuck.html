@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tummy Tuck - Abdominal Contouring at Elegance Cosmetic Surgery</title>
+  <link rel="stylesheet" href="styles.css">
+<script>
+(function () {
+
+  'use strict';
+
+  var SUPABASE_URL = "https://biapuchwmoqyguoibhrr.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpYXB1Y2h3bW9xeWd1b2liaHJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMjY0MTMsImV4cCI6MjA4OTcwMjQxM30.ReCE3pVFHOTZ6Z-EwIJYa1dGhoaqbTJqgWAQIDItC2k";
+  var CLINIC_ID = "33edb56a-6e66-49d7-ba57-63d771a31d65";
+  var CONSULTATION_PATH = "/consultation.html";
+  var FUNNEL_PAGES = [
+  {
+    "urlPattern": "/facelift.html",
+    "pageId": "7f919838-091f-4aaa-a616-f4326a70d833",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/mommy-makeover.html",
+    "pageId": "502dfc93-6416-417f-9a76-ead9fddebfd6",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/breast-augmentation.html",
+    "pageId": "43b1672c-467f-4a14-b23c-754c1c429567",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/rhinoplasty.html",
+    "pageId": "4d9f3657-eddb-4ddc-b840-6cdbfde94c22",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/liposuction.html",
+    "pageId": "482d7a47-9047-4687-97ae-ad30c447fea1",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/tummy-tuck.html",
+    "pageId": "ffa8ec34-f183-4030-bcd0-12df0fc1c8c0",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "d2241dd6-b517-49fd-9c65-b5633972af04",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "b04a8a87-c159-4b45-a87c-5e3b93f1ec03",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "96c1a2ab-e01a-463e-b866-1a86843fec05",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "4834ec6d-485f-4c36-b93f-fc4816adb80d",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "13a8e939-026e-42e6-b3b2-38163ff39690",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "f3b1a94f-47a1-452e-9e0e-c48f07a74833",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "640203fa-7a16-48da-8b77-bf39272fe83f",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "248efdc5-f56b-474d-ae42-70c3b49f4ee1",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "9f2eb075-d251-4c6d-bc7c-8557fbeb9a72",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "220d47e2-014b-4d61-8095-6388d4923be4",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "6e5f6d80-9d9c-4fd5-af24-cc279705f37e",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "a7689471-2715-45cf-b294-586480ee7087",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "0b7bf72d-ed8a-40d3-a9fd-1a5970ba2409",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "c24cc396-fd01-4e4b-bdcc-25b3a6af8fc2",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "54356c2b-d16e-4932-9792-528ea48d2b7e",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "d903a31f-a8ab-43aa-a77e-76ad2d51840a",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "9f4715f4-d238-421e-a086-ec43884426ca",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "6a2f275c-60f1-42e4-83b4-5231efeacc2c",
+    "stepType": "form_submit"
+  }
+];
+
+  function getSessionId() {
+    var KEY = 'ryndrex_sid';
+    var EXPIRY_KEY = 'ryndrex_sid_expiry';
+    var now = Date.now();
+    var expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
+    var existing = localStorage.getItem(KEY);
+    if (!existing || now > expiry) {
+      var id = 'sess_' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+      localStorage.setItem(KEY, id);
+      localStorage.setItem(EXPIRY_KEY, String(now + 30 * 24 * 60 * 60 * 1000));
+      return id;
+    }
+    return existing;
+  }
+
+  function getDeviceType() { return window.innerWidth < 768 ? 'mobile' : 'desktop'; }
+  function getUTM(param) { return new URLSearchParams(window.location.search).get(param) || null; }
+  function normalizePath(p) {
+    if (!p) return '/';
+    try { return p.split('?')[0].split('#')[0].toLowerCase().replace(/\/$/, '') || '/'; }
+    catch (e) { return '/'; }
+  }
+
+  function matchCurrentPage() {
+    var current = normalizePath(window.location.pathname);
+    var procedureMatch = null;
+    for (var i = 0; i < FUNNEL_PAGES.length; i++) {
+      if (normalizePath(FUNNEL_PAGES[i].urlPattern) === current) {
+        if (FUNNEL_PAGES[i].stepType === 'procedure_page_view') {
+          localStorage.setItem('ryndrex_procedure_idx', String(i));
+          return FUNNEL_PAGES[i];
+        }
+        if (!procedureMatch) procedureMatch = i;
+      }
+    }
+    if (procedureMatch !== null) {
+      var storedIdx = parseInt(localStorage.getItem('ryndrex_procedure_idx') || '-1');
+      if (storedIdx >= 0) {
+        for (var k = storedIdx; k < FUNNEL_PAGES.length; k++) {
+          if (normalizePath(FUNNEL_PAGES[k].urlPattern) === current) return FUNNEL_PAGES[k];
+          if (k > storedIdx && FUNNEL_PAGES[k].stepType === 'procedure_page_view') break;
+        }
+      }
+      return FUNNEL_PAGES[procedureMatch];
+    }
+    return null;
+  }
+
+  function isConsultationLink(href) {
+    if (!href) return false;
+    try { var url = new URL(href, window.location.href); return normalizePath(url.pathname) === normalizePath(CONSULTATION_PATH); }
+    catch (e) { return false; }
+  }
+
+  function sendEvent(eventType, pageId, metadata, keepalive) {
+    var payload = {
+      clinic_id: CLINIC_ID, page_id: pageId || null, session_id: getSessionId(),
+      event_type: eventType, device_type: getDeviceType(),
+      utm_source: getUTM('utm_source'), utm_medium: getUTM('utm_medium'), utm_campaign: getUTM('utm_campaign'),
+      occurred_at: new Date().toISOString(), metadata: metadata || null
+    };
+    try {
+      fetch(SUPABASE_URL + '/rest/v1/events', {
+        method: 'POST', keepalive: keepalive === true,
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=minimal' },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  var currentPage = matchCurrentPage();
+  var viewport = { width: window.innerWidth, height: window.innerHeight };
+  var pageStartTime = Date.now();
+  var maxScrollPct = 0;
+
+  if (currentPage) { sendEvent(currentPage.stepType, currentPage.pageId, { viewport: viewport }); }
+
+  if (currentPage) {
+    window.addEventListener('scroll', function () {
+      var scrolled = window.scrollY || window.pageYOffset;
+      var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+      if (docHeight > 0) { var pct = Math.round((scrolled / docHeight) * 100); if (pct > maxScrollPct) maxScrollPct = pct; }
+    }, { passive: true });
+  }
+
+  if (currentPage) {
+    var formOpened = false;
+    var inputs = document.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]), textarea, select');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener('focus', function () {
+        if (!formOpened) { formOpened = true; sendEvent('form_open', currentPage.pageId, null); }
+      }, { once: true });
+    }
+    var forms = document.querySelectorAll('form');
+    for (var j = 0; j < forms.length; j++) {
+      forms[j].addEventListener('submit', function () { sendEvent('form_submit', currentPage.pageId, null); });
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+    if (el) { sendEvent('phone_click', currentPage ? currentPage.pageId : null, null); }
+  });
+
+  document.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (el && isConsultationLink(el.getAttribute('href'))) { sendEvent('cta_click', currentPage ? currentPage.pageId : null, null); }
+  });
+
+  if (currentPage) {
+    window.addEventListener('pagehide', function () {
+      var timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
+      sendEvent('page_exit', currentPage.pageId, { scroll_depth_pct: maxScrollPct, time_on_page_sec: timeOnPage, viewport: viewport }, true);
+    });
+  }
+
+})();
+</script>
+</head>
+<body>
+  <!-- HEADER & NAVIGATION -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Elegance Cosmetic</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#procedures">Procedures</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="consultation.html" class="btn btn-primary">Schedule Consultation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Tummy Tuck - Abdominal Contouring Surgery</h1>
+      <p>Sculpt a flatter, more defined abdomen with our comprehensive abdominal contouring procedures.</p>
+      <div class="cta-section">
+        <a href="consultation.html" class="btn btn-primary">Schedule Your Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="section container">
+    <h2>What is a Tummy Tuck?</h2>
+    <p>A tummy tuck, or abdominoplasty, is a surgical procedure that removes excess skin and fat from the abdomen while tightening the underlying abdominal muscles. This procedure is ideal for individuals who have loose, sagging skin around the midsection due to pregnancy, significant weight loss, or natural aging.</p>
+    <p>Dr. Rodriguez specializes in creating beautifully sculpted abdomens that are proportionate to your body and enhance your overall silhouette.</p>
+  </section>
+
+  <!-- OVERVIEW SECTION -->
+  <section class="section section-alt container">
+    <h2>Procedure Overview</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Surgical Technique</h3>
+        <p>A tummy tuck involves an incision across the lower abdomen, typically hidden by swimwear or underwear. Excess skin is removed, and abdominal muscles are tightened for improved contour.</p>
+      </div>
+      <div class="card">
+        <h3>Duration</h3>
+        <p>The procedure typically takes 2 to 3 hours, depending on the extent of the surgery. Most patients stay overnight for observation and go home the next day.</p>
+      </div>
+      <div class="card">
+        <h3>Anesthesia</h3>
+        <p>Tummy tuck is performed under general anesthesia, ensuring your comfort and safety throughout the procedure.</p>
+      </div>
+      <div class="card">
+        <h3>Customization</h3>
+        <p>From mini tummy tucks to comprehensive procedures, we offer options tailored to your specific needs and the amount of excess skin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDEAL CANDIDATES -->
+  <section class="section container">
+    <h2>Ideal Candidates for Tummy Tuck</h2>
+    <p>Tummy tuck is suitable for individuals who:</p>
+    <ul style="margin-left: 2rem; margin-bottom: 2rem;">
+      <li>Have excess abdominal skin and fat</li>
+      <li>Have loose or sagging skin after pregnancy or weight loss</li>
+      <li>Have separated or weakened abdominal muscles</li>
+      <li>Want a flatter, more contoured midsection</li>
+      <li>Are in good overall health</li>
+      <li>Have realistic expectations about surgical outcomes</li>
+      <li>Are not planning future pregnancies (or understand the implications)</li>
+      <li>Maintain a stable weight</li>
+    </ul>
+    <p>During your consultation, Dr. Rodriguez will assess your candidacy and discuss whether tummy tuck is the right choice for you.</p>
+  </section>
+
+  <!-- BENEFITS SECTION -->
+  <section class="section section-alt container">
+    <h2>Benefits of Tummy Tuck</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Flatter Abdomen</h3>
+        <p>Tummy tuck removes excess skin and fat, creating a noticeably flatter, more sculpted midsection.</p>
+      </div>
+      <div class="card">
+        <h3>Improved Muscle Definition</h3>
+        <p>Tightening of abdominal muscles creates better definition and a more toned appearance.</p>
+      </div>
+      <div class="card">
+        <h3>Enhanced Silhouette</h3>
+        <p>A flatter abdomen enhances your overall body proportions and allows you to wear clothing more confidently.</p>
+      </div>
+      <div class="card">
+        <h3>Long-Lasting Results</h3>
+        <p>Tummy tuck results are permanent, provided you maintain a stable weight and healthy lifestyle.</p>
+      </div>
+      <div class="card">
+        <h3>Improved Posture</h3>
+        <p>Tightened abdominal muscles can improve posture and reduce back strain.</p>
+      </div>
+      <div class="card">
+        <h3>Boosted Confidence</h3>
+        <p>Many patients report a significant increase in confidence and body satisfaction after tummy tuck.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOVERY SECTION -->
+  <section class="section container">
+    <h2>Recovery and Aftercare</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>First Week</h3>
+        <p>You'll experience soreness, swelling, and tightness in the abdomen. Pain is managed with prescribed medication. You'll wear a compression garment for support.</p>
+      </div>
+      <div class="card">
+        <h3>Weeks 2-4</h3>
+        <p>Most patients can return to light activities and desk work. Avoid strenuous exercise and heavy lifting. Swelling continues to decrease.</p>
+      </div>
+      <div class="card">
+        <h3>Weeks 4-6</h3>
+        <p>You can gradually resume normal activities, including light exercise. Most of the discomfort has resolved.</p>
+      </div>
+      <div class="card">
+        <h3>Months 2-3</h3>
+        <p>You can return to all activities, including strenuous exercise. Final results become apparent as swelling fully resolves.</p>
+      </div>
+    </div>
+    <div class="sidebar" style="margin-top: 2rem;">
+      <h3>Post-Operative Instructions</h3>
+      <ul style="margin-left: 1rem;">
+        <li>Wear the compression garment as directed for proper support</li>
+        <li>Keep your head elevated when resting to minimize swelling</li>
+        <li>Take prescribed medications as directed</li>
+        <li>Avoid strenuous activities and heavy lifting for 4-6 weeks</li>
+        <li>Don't bend or twist at the waist for the first few weeks</li>
+        <li>Avoid swimming and hot tubs until incisions are fully healed</li>
+        <li>Attend all follow-up appointments</li>
+        <li>Report any unusual symptoms to your surgeon immediately</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section-alt container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question">Will tummy tuck scars be visible?</div>
+      <div class="faq-answer">The incision is typically placed low on the abdomen, hidden by swimwear or underwear. Scars fade significantly over time and become less noticeable.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I have future pregnancies after tummy tuck?</div>
+      <div class="faq-answer">While you can become pregnant after tummy tuck, pregnancy will stretch the skin and muscles again, potentially affecting your results. It's best to complete your family before having this procedure.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">How long do tummy tuck results last?</div>
+      <div class="faq-answer">Tummy tuck results are permanent, provided you maintain a stable weight and healthy lifestyle. Significant weight gain or pregnancy can affect your results.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can tummy tuck be combined with other procedures?</div>
+      <div class="faq-answer">Yes, many patients combine tummy tuck with liposuction, breast augmentation, or other procedures for comprehensive body contouring.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">What are the risks of tummy tuck?</div>
+      <div class="faq-answer">Like any surgery, tummy tuck carries some risks, including infection, bleeding, and fluid accumulation. However, serious complications are rare when performed by a board-certified surgeon.</div>
+    </div>
+  </section>
+
+  <!-- RELATED PROCEDURES -->
+  <section class="section container">
+    <div class="related-procedures">
+      <h3>Complementary Procedures</h3>
+      <p>Many patients combine tummy tuck with other body contouring procedures:</p>
+      <ul>
+        <li><a href="liposuction.html">Liposuction</a> - For enhanced body sculpting</li>
+        <li><a href="breast-augmentation.html">Breast Augmentation</a> - For comprehensive body enhancement</li>
+        <li><a href="mommy-makeover.html">Mommy Makeover</a> - Comprehensive post-pregnancy restoration</li>
+        <li><a href="index.html#procedures">Body Lift</a> - For overall body contouring</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BEFORE/AFTER GALLERY -->
+  <section class="section section-alt container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Tummy Tuck Gallery</h2>
+    <div class="before-after-container">
+      <div class="before-after-item">
+        <div class="image-placeholder">Before/After Tummy Tuck Case 1</div>
+      </div>
+      <div class="before-after-item">
+        <div class="image-placeholder">Before/After Tummy Tuck Case 2</div>
+      </div>
+      <div class="before-after-item">
+        <div class="image-placeholder">Before/After Tummy Tuck Case 3</div>
+      </div>
+    </div>
+    <div class="cta-section">
+      <a href="gallery.html" class="btn btn-secondary">View Full Gallery</a>
+    </div>
+  </section>
+
+  <!-- CTA SIDEBAR -->
+  <section class="section container">
+    <div class="sidebar">
+      <h3>Ready to Sculpt Your Abdomen?</h3>
+      <p>Schedule your private consultation with Dr. Rodriguez to discuss your tummy tuck goals. We'll create a personalized surgical plan tailored to your needs.</p>
+      <div class="sidebar-cta">
+        <a href="consultation.html" class="btn btn-primary" style="width: 100%; text-align: center;">Schedule Your Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#procedures">Procedures</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Procedures</h4>
+        <ul>
+          <li><a href="rhinoplasty.html">Rhinoplasty</a></li>
+          <li><a href="facelift.html">Facelift</a></li>
+          <li><a href="breast-augmentation.html">Breast Augmentation</a></li>
+          <li><a href="tummy-tuck.html">Tummy Tuck</a></li>
+          <li><a href="liposuction.html">Liposuction</a></li>
+          <li><a href="mommy-makeover.html">Mommy Makeover</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p><strong>Phone:</strong> (555) 123-4567</p>
+        <p><strong>Email:</strong> info@elegancecosmetic.com</p>
+        <p><strong>Address:</strong> 1500 Aesthetic Boulevard, Suite 200, Metropolitan City, ST 12345</p>
+        <p><strong>Hours:</strong> Mon-Fri 9AM-6PM, Sat 10AM-4PM</p>
+      </div>
+      <div class="footer-section">
+        <h4>Patient Resources</h4>
+        <ul>
+          <li><a href="consultation.html">Schedule Consultation</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Elegance Cosmetic Surgery. All rights reserved. This website is for testing purposes only.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

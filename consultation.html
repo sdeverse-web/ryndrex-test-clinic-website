@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Consultation - Elegance Cosmetic Surgery</title>
+  <link rel="stylesheet" href="styles.css">
+<script>
+(function () {
+
+  'use strict';
+
+  var SUPABASE_URL = "https://biapuchwmoqyguoibhrr.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpYXB1Y2h3bW9xeWd1b2liaHJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMjY0MTMsImV4cCI6MjA4OTcwMjQxM30.ReCE3pVFHOTZ6Z-EwIJYa1dGhoaqbTJqgWAQIDItC2k";
+  var CLINIC_ID = "33edb56a-6e66-49d7-ba57-63d771a31d65";
+  var CONSULTATION_PATH = "/consultation.html";
+  var FUNNEL_PAGES = [
+  {
+    "urlPattern": "/facelift.html",
+    "pageId": "7f919838-091f-4aaa-a616-f4326a70d833",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/mommy-makeover.html",
+    "pageId": "502dfc93-6416-417f-9a76-ead9fddebfd6",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/breast-augmentation.html",
+    "pageId": "43b1672c-467f-4a14-b23c-754c1c429567",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/rhinoplasty.html",
+    "pageId": "4d9f3657-eddb-4ddc-b840-6cdbfde94c22",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/liposuction.html",
+    "pageId": "482d7a47-9047-4687-97ae-ad30c447fea1",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/tummy-tuck.html",
+    "pageId": "ffa8ec34-f183-4030-bcd0-12df0fc1c8c0",
+    "stepType": "procedure_page_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "d2241dd6-b517-49fd-9c65-b5633972af04",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "b04a8a87-c159-4b45-a87c-5e3b93f1ec03",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "96c1a2ab-e01a-463e-b866-1a86843fec05",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "4834ec6d-485f-4c36-b93f-fc4816adb80d",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "13a8e939-026e-42e6-b3b2-38163ff39690",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/gallery.html",
+    "pageId": "f3b1a94f-47a1-452e-9e0e-c48f07a74833",
+    "stepType": "gallery_view"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "640203fa-7a16-48da-8b77-bf39272fe83f",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "248efdc5-f56b-474d-ae42-70c3b49f4ee1",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "9f2eb075-d251-4c6d-bc7c-8557fbeb9a72",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "220d47e2-014b-4d61-8095-6388d4923be4",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "6e5f6d80-9d9c-4fd5-af24-cc279705f37e",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "a7689471-2715-45cf-b294-586480ee7087",
+    "stepType": "form_open"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "0b7bf72d-ed8a-40d3-a9fd-1a5970ba2409",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "c24cc396-fd01-4e4b-bdcc-25b3a6af8fc2",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "54356c2b-d16e-4932-9792-528ea48d2b7e",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "d903a31f-a8ab-43aa-a77e-76ad2d51840a",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "9f4715f4-d238-421e-a086-ec43884426ca",
+    "stepType": "form_submit"
+  },
+  {
+    "urlPattern": "/consultation.html",
+    "pageId": "6a2f275c-60f1-42e4-83b4-5231efeacc2c",
+    "stepType": "form_submit"
+  }
+];
+
+  function getSessionId() {
+    var KEY = 'ryndrex_sid';
+    var EXPIRY_KEY = 'ryndrex_sid_expiry';
+    var now = Date.now();
+    var expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
+    var existing = localStorage.getItem(KEY);
+    if (!existing || now > expiry) {
+      var id = 'sess_' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+      localStorage.setItem(KEY, id);
+      localStorage.setItem(EXPIRY_KEY, String(now + 30 * 24 * 60 * 60 * 1000));
+      return id;
+    }
+    return existing;
+  }
+
+  function getDeviceType() { return window.innerWidth < 768 ? 'mobile' : 'desktop'; }
+  function getUTM(param) { return new URLSearchParams(window.location.search).get(param) || null; }
+  function normalizePath(p) {
+    if (!p) return '/';
+    try { return p.split('?')[0].split('#')[0].toLowerCase().replace(/\/$/, '') || '/'; }
+    catch (e) { return '/'; }
+  }
+
+  function matchCurrentPage() {
+    var current = normalizePath(window.location.pathname);
+    var procedureMatch = null;
+    for (var i = 0; i < FUNNEL_PAGES.length; i++) {
+      if (normalizePath(FUNNEL_PAGES[i].urlPattern) === current) {
+        if (FUNNEL_PAGES[i].stepType === 'procedure_page_view') {
+          localStorage.setItem('ryndrex_procedure_idx', String(i));
+          return FUNNEL_PAGES[i];
+        }
+        if (!procedureMatch) procedureMatch = i;
+      }
+    }
+    if (procedureMatch !== null) {
+      var storedIdx = parseInt(localStorage.getItem('ryndrex_procedure_idx') || '-1');
+      if (storedIdx >= 0) {
+        for (var k = storedIdx; k < FUNNEL_PAGES.length; k++) {
+          if (normalizePath(FUNNEL_PAGES[k].urlPattern) === current) return FUNNEL_PAGES[k];
+          if (k > storedIdx && FUNNEL_PAGES[k].stepType === 'procedure_page_view') break;
+        }
+      }
+      return FUNNEL_PAGES[procedureMatch];
+    }
+    return null;
+  }
+
+  function isConsultationLink(href) {
+    if (!href) return false;
+    try { var url = new URL(href, window.location.href); return normalizePath(url.pathname) === normalizePath(CONSULTATION_PATH); }
+    catch (e) { return false; }
+  }
+
+  function sendEvent(eventType, pageId, metadata, keepalive) {
+    var payload = {
+      clinic_id: CLINIC_ID, page_id: pageId || null, session_id: getSessionId(),
+      event_type: eventType, device_type: getDeviceType(),
+      utm_source: getUTM('utm_source'), utm_medium: getUTM('utm_medium'), utm_campaign: getUTM('utm_campaign'),
+      occurred_at: new Date().toISOString(), metadata: metadata || null
+    };
+    try {
+      fetch(SUPABASE_URL + '/rest/v1/events', {
+        method: 'POST', keepalive: keepalive === true,
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=minimal' },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  var currentPage = matchCurrentPage();
+  var viewport = { width: window.innerWidth, height: window.innerHeight };
+  var pageStartTime = Date.now();
+  var maxScrollPct = 0;
+
+  if (currentPage) { sendEvent(currentPage.stepType, currentPage.pageId, { viewport: viewport }); }
+
+  if (currentPage) {
+    window.addEventListener('scroll', function () {
+      var scrolled = window.scrollY || window.pageYOffset;
+      var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+      if (docHeight > 0) { var pct = Math.round((scrolled / docHeight) * 100); if (pct > maxScrollPct) maxScrollPct = pct; }
+    }, { passive: true });
+  }
+
+  if (currentPage) {
+    document.addEventListener('DOMContentLoaded', function() {
+      var formOpened = false;
+      var inputs = document.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]), textarea, select');
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('focus', function () {
+          if (!formOpened) { formOpened = true; sendEvent('form_open', currentPage.pageId, null); }
+        }, { once: true });
+      }
+      var forms = document.querySelectorAll('form');
+      for (var j = 0; j < forms.length; j++) {
+        forms[j].addEventListener('submit', function () { sendEvent('form_submit', currentPage.pageId, null); });
+      }
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+    if (el) { sendEvent('phone_click', currentPage ? currentPage.pageId : null, null); }
+  });
+
+  document.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (el && isConsultationLink(el.getAttribute('href'))) { sendEvent('cta_click', currentPage ? currentPage.pageId : null, null); }
+  });
+
+  if (currentPage) {
+    window.addEventListener('pagehide', function () {
+      var timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
+      sendEvent('page_exit', currentPage.pageId, { scroll_depth_pct: maxScrollPct, time_on_page_sec: timeOnPage, viewport: viewport }, true);
+    });
+  }
+
+})();
+</script>
+</head>
+<body>
+  <!-- HEADER & NAVIGATION -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Elegance Cosmetic</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#procedures">Procedures</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="consultation.html" class="btn btn-primary">Schedule Consultation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Schedule Your Consultation</h1>
+      <p>Take the first step toward achieving your aesthetic goals. Our surgeons are ready to listen and help.</p>
+    </div>
+  </section>
+
+  <!-- CONSULTATION INTRO -->
+  <section class="section container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Your Personal Consultation</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>What to Expect</h3>
+        <p>During your consultation, you'll meet with one of our board-certified surgeons in a private, comfortable setting. We'll discuss your aesthetic goals, review your medical history, and answer all your questions.</p>
+      </div>
+      <div class="card">
+        <h3>Personalized Assessment</h3>
+        <p>Our surgeon will perform a thorough examination and may use advanced imaging technology to help you visualize potential results and discuss your options.</p>
+      </div>
+      <div class="card">
+        <h3>Treatment Plan</h3>
+        <p>Based on your goals and anatomy, we'll create a personalized treatment plan and discuss all aspects of your procedure, including risks, benefits, and recovery.</p>
+      </div>
+      <div class="card">
+        <h3>No Pressure</h3>
+        <p>We believe in informed decision-making. You'll have all the information you need to make the best choice for yourself, with no pressure to proceed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION FORM -->
+  <section class="section section-alt container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Consultation Request Form</h2>
+    <div style="max-width: 600px; margin: 0 auto;">
+      <form id="consultation-form">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="procedure">Procedure of Interest *</label>
+          <select id="procedure" name="procedure" required>
+            <option value="">-- Select a Procedure --</option>
+            <option value="rhinoplasty">Rhinoplasty</option>
+            <option value="facelift">Facelift</option>
+            <option value="breast-augmentation">Breast Augmentation</option>
+            <option value="tummy-tuck">Tummy Tuck</option>
+            <option value="liposuction">Liposuction</option>
+            <option value="mommy-makeover">Mommy Makeover</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-method">Preferred Contact Method *</label>
+          <select id="contact-method" name="contact-method" required>
+            <option value="">-- Select a Method --</option>
+            <option value="phone">Phone</option>
+            <option value="email">Email</option>
+            <option value="text">Text Message</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell Us About Your Goals</label>
+          <textarea id="message" name="message" placeholder="Describe your aesthetic goals and any concerns you'd like to discuss..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" name="privacy" required>
+            <span>I agree to the privacy policy and consent to be contacted about my consultation request.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">Request Consultation</button>
+      </form>
+
+      <div style="margin-top: 2rem; padding: 1.5rem; background-color: var(--light-bg); border-radius: 8px;">
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Your Privacy Matters</h4>
+        <p style="font-size: 0.9rem; color: var(--text-light);">We respect your privacy and maintain strict confidentiality. Your information will only be used to contact you about your consultation request. We never share your information with third parties.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION BENEFITS -->
+  <section class="section container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Why Schedule a Consultation?</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Expert Guidance</h3>
+        <p>Our board-certified surgeons have years of experience and can provide expert guidance on achieving your aesthetic goals.</p>
+      </div>
+      <div class="card">
+        <h3>Realistic Expectations</h3>
+        <p>We'll help you understand what's possible based on your unique anatomy and provide honest, realistic expectations about results.</p>
+      </div>
+      <div class="card">
+        <h3>Customized Plan</h3>
+        <p>Every consultation results in a personalized treatment plan tailored specifically to your needs and goals.</p>
+      </div>
+      <div class="card">
+        <h3>Advanced Technology</h3>
+        <p>We use cutting-edge imaging technology to help you visualize potential results before making any decisions.</p>
+      </div>
+      <div class="card">
+        <h3>Comprehensive Information</h3>
+        <p>You'll receive detailed information about the procedure, recovery, risks, and benefits to make an informed decision.</p>
+      </div>
+      <div class="card">
+        <h3>Comfortable Environment</h3>
+        <p>Our private consultation rooms provide a comfortable, confidential setting where you can openly discuss your goals.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION PROCESS -->
+  <section class="section section-alt container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">The Consultation Process</h2>
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="faq-item">
+        <div class="faq-question" style="cursor: default;">Step 1: Initial Assessment</div>
+        <div class="faq-answer">We'll review your medical history, current medications, and any previous surgeries. This helps us ensure you're a good candidate for your desired procedure.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" style="cursor: default;">Step 2: Goal Discussion</div>
+        <div class="faq-answer">Our surgeon will listen carefully to your aesthetic goals and concerns. We'll discuss what you like and don't like about your appearance and what you hope to achieve.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" style="cursor: default;">Step 3: Physical Examination</div>
+        <div class="faq-answer">A thorough physical examination will be performed to assess your anatomy and determine the best surgical approach for your goals.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" style="cursor: default;">Step 4: Imaging and Visualization</div>
+        <div class="faq-answer">We may use advanced 3D imaging technology to show you potential results and help you visualize the changes that could be made.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" style="cursor: default;">Step 5: Treatment Plan</div>
+        <div class="faq-answer">Based on your goals and anatomy, we'll create a personalized treatment plan including procedure details, recovery timeline, and cost estimates.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" style="cursor: default;">Step 6: Q&A and Next Steps</div>
+        <div class="faq-answer">You'll have the opportunity to ask any questions. If you decide to proceed, we'll discuss scheduling and pre-operative preparation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION FAQS -->
+  <section class="section container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Consultation FAQs</h2>
+    <div class="faq-item">
+      <div class="faq-question">Is there a consultation fee?</div>
+      <div class="faq-answer">We offer free initial consultations for most procedures. This gives you the opportunity to meet our surgeons and discuss your goals without any financial commitment.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">How long does a consultation take?</div>
+      <div class="faq-answer">Most consultations take 45 minutes to an hour, depending on the complexity of your goals and the number of procedures you're considering.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">What should I bring to my consultation?</div>
+      <div class="faq-answer">Bring a valid ID and any insurance information if applicable. You may also want to bring photos of results you like or areas you want to discuss.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I bring someone with me?</div>
+      <div class="faq-answer">Yes, you're welcome to bring a trusted friend or family member to your consultation for support and to help you remember important information.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">What if I'm not ready to schedule surgery?</div>
+      <div class="faq-answer">That's perfectly fine. A consultation is meant to provide information and help you make an informed decision. There's no pressure to proceed with surgery.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">How do I schedule a consultation?</div>
+      <div class="faq-answer">Simply fill out the consultation request form above, call us at (555) 123-4567, or email us at info@elegancecosmetic.com. We'll contact you within 24 business hours to confirm your appointment.</div>
+    </div>
+  </section>
+
+  <!-- CONTACT INFO SECTION -->
+  <section class="section section-alt container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Contact Information</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Phone</h3>
+        <p><strong>(555) 123-4567</strong></p>
+        <p style="font-size: 0.9rem; color: var(--text-light);">Mon-Fri 9AM-6PM, Sat 10AM-4PM</p>
+      </div>
+      <div class="card">
+        <h3>Email</h3>
+        <p><strong>info@elegancecosmetic.com</strong></p>
+        <p style="font-size: 0.9rem; color: var(--text-light);">We respond within 24 business hours</p>
+      </div>
+      <div class="card">
+        <h3>Address</h3>
+        <p><strong>1500 Aesthetic Boulevard, Suite 200</strong></p>
+        <p style="font-size: 0.9rem; color: var(--text-light);">Metropolitan City, ST 12345</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#procedures">Procedures</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Procedures</h4>
+        <ul>
+          <li><a href="rhinoplasty.html">Rhinoplasty</a></li>
+          <li><a href="facelift.html">Facelift</a></li>
+          <li><a href="breast-augmentation.html">Breast Augmentation</a></li>
+          <li><a href="tummy-tuck.html">Tummy Tuck</a></li>
+          <li><a href="liposuction.html">Liposuction</a></li>
+          <li><a href="mommy-makeover.html">Mommy Makeover</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p><strong>Phone:</strong> (555) 123-4567</p>
+        <p><strong>Email:</strong> info@elegancecosmetic.com</p>
+        <p><strong>Address:</strong> 1500 Aesthetic Boulevard, Suite 200, Metropolitan City, ST 12345</p>
+        <p><strong>Hours:</strong> Mon-Fri 9AM-6PM, Sat 10AM-4PM</p>
+      </div>
+      <div class="footer-section">
+        <h4>Patient Resources</h4>
+        <ul>
+          <li><a href="consultation.html">Schedule Consultation</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Elegance Cosmetic Surgery. All rights reserved. This website is for testing purposes only.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
