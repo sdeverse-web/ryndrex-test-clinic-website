@@ -160,11 +160,21 @@
     catch (e) { return '/'; }
   }
 
+  // Safe suffix match. Ensures pattern has a leading slash so the match
+  // always falls on a path boundary — prevents "/augmentation.html" from
+  // falsely matching "/breast-augmentation.html". Also survives subpath
+  // deployments (GitHub Pages project sites, locale prefixes, staging paths).
+  function pathMatches(current, pattern) {
+    if (current === pattern) return true;
+    var p = pattern.charAt(0) === '/' ? pattern : '/' + pattern;
+    return current.length > p.length && current.slice(-p.length) === p;
+  }
+
   function matchCurrentPage() {
     var current = normalizePath(window.location.pathname);
     var procedureMatch = null;
     for (var i = 0; i < FUNNEL_PAGES.length; i++) {
-      if (normalizePath(FUNNEL_PAGES[i].urlPattern) === current) {
+      if (pathMatches(current, normalizePath(FUNNEL_PAGES[i].urlPattern))) {
         if (FUNNEL_PAGES[i].stepType === 'procedure_page_view') {
           localStorage.setItem('ryndrex_procedure_idx', String(i));
           return FUNNEL_PAGES[i];
@@ -176,7 +186,7 @@
       var storedIdx = parseInt(localStorage.getItem('ryndrex_procedure_idx') || '-1');
       if (storedIdx >= 0) {
         for (var k = storedIdx; k < FUNNEL_PAGES.length; k++) {
-          if (normalizePath(FUNNEL_PAGES[k].urlPattern) === current) return FUNNEL_PAGES[k];
+          if (pathMatches(current, normalizePath(FUNNEL_PAGES[k].urlPattern))) return FUNNEL_PAGES[k];
           if (k > storedIdx && FUNNEL_PAGES[k].stepType === 'procedure_page_view') break;
         }
       }
@@ -187,7 +197,10 @@
 
   function isConsultationLink(href) {
     if (!href) return false;
-    try { var url = new URL(href, window.location.href); return normalizePath(url.pathname) === normalizePath(CONSULTATION_PATH); }
+    try {
+      var url = new URL(href, window.location.href);
+      return pathMatches(normalizePath(url.pathname), normalizePath(CONSULTATION_PATH));
+    }
     catch (e) { return false; }
   }
 
