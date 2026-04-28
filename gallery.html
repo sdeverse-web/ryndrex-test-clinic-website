@@ -7,192 +7,155 @@
   <link rel="stylesheet" href="styles.css">
 <script>
 (function () {
-
   'use strict';
 
+  // ─── Idempotent loader ────────────────────────────────────────────────
+  if (window.__RYNDREX_LOADED__) return;
+  window.__RYNDREX_LOADED__ = true;
+
+  // ─── Config ───────────────────────────────────────────────────────────
   var SUPABASE_URL = "https://biapuchwmoqyguoibhrr.supabase.co";
   var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpYXB1Y2h3bW9xeWd1b2liaHJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMjY0MTMsImV4cCI6MjA4OTcwMjQxM30.ReCE3pVFHOTZ6Z-EwIJYa1dGhoaqbTJqgWAQIDItC2k";
-  var CLINIC_ID = "b08c87a7-7b6d-4a23-b1d4-cc4bfe1e820d";
-  var CONSULTATION_PATH = "/ryndrex-test-clinic-website/consultation.html";
+  var CLINIC_ID = "33edb56a-6e66-49d7-ba57-63d771a31d65";
+  var CONSULTATION_PATH = "/consultation";
   var FUNNEL_PAGES = [
   {
-    "urlPattern": "/ryndrex-test-clinic-website/liposuction.html",
-    "pageId": "ebc72b1c-f555-499f-b520-c3c32dfb2274",
-    "stepType": "procedure_page_view",
-    "procedureId": "8603ccc4-7486-4d7c-b506-7fa1300cb038"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/breast-augmentation.html",
-    "pageId": "ddbda7bd-1d99-4ef8-bb7d-a66bb56e8bb4",
-    "stepType": "procedure_page_view",
-    "procedureId": "3d09c6ec-7b82-4f1c-94db-1d0fd2c3dd6b"
-  },
-  {
     "urlPattern": "/ryndrex-test-clinic-website/facelift.html",
-    "pageId": "b39f67df-4c98-400b-bf7b-f561198829d1",
+    "pageId": "52833b15-5ab0-4814-90b1-a9074a093064",
     "stepType": "procedure_page_view",
-    "procedureId": "7938d053-edbb-48aa-81a1-fab432c61e3d"
+    "procedureId": "4b7a85a5-1177-47f1-8f51-26a47de5c349"
   },
   {
     "urlPattern": "/ryndrex-test-clinic-website/rhinoplasty.html",
-    "pageId": "34ebe4e7-c865-4641-99b5-3e0574552584",
+    "pageId": "f6e2c408-29c2-45bb-abae-a228a9e4bc06",
     "stepType": "procedure_page_view",
-    "procedureId": "2aaa04fa-5032-429c-a518-b6f5daedc926"
+    "procedureId": "1d618609-0ec4-4594-98d2-1bc32965d548"
   },
   {
-    "urlPattern": "/ryndrex-test-clinic-website/mommy-makeover.html",
-    "pageId": "93f6b829-637a-460c-b627-99d203772f7b",
+    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
+    "pageId": "60d74fe2-d99d-4621-b6bd-31e1f893ee39",
     "stepType": "procedure_page_view",
-    "procedureId": "51bfa6b2-b2e0-4952-8174-8791d6e51f56"
+    "procedureId": "4b7a85a5-1177-47f1-8f51-26a47de5c349"
   },
   {
-    "urlPattern": "/ryndrex-test-clinic-website/tummy-tuck.html",
-    "pageId": "9086077f-0b9c-457f-993a-1021b091f943",
+    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
+    "pageId": "9a1400d0-4157-423d-b473-d0569f17e6ba",
     "stepType": "procedure_page_view",
-    "procedureId": "1d13ae09-8b14-4b5a-8e2d-e40131c02ce5"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "0dad7b57-2b76-467c-957f-23dccc1fa93c",
-    "stepType": "gallery_view",
-    "procedureId": "51bfa6b2-b2e0-4952-8174-8791d6e51f56"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "ffd9b507-dcb0-4ea4-aef3-9021837dcbee",
-    "stepType": "gallery_view",
-    "procedureId": "2aaa04fa-5032-429c-a518-b6f5daedc926"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "61c5eef5-3988-4ec3-959f-fc9ba3c0b177",
-    "stepType": "gallery_view",
-    "procedureId": "1d13ae09-8b14-4b5a-8e2d-e40131c02ce5"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "3da58d8a-c6ce-42db-b6fa-f4f1a9193f91",
-    "stepType": "gallery_view",
-    "procedureId": "8603ccc4-7486-4d7c-b506-7fa1300cb038"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "8ddbd867-4ee5-4b0a-9f8e-2adc48915b0b",
-    "stepType": "gallery_view",
-    "procedureId": "3d09c6ec-7b82-4f1c-94db-1d0fd2c3dd6b"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "bdcff1b6-192d-4971-9d82-0dc3b9066f50",
-    "stepType": "gallery_view",
-    "procedureId": "7938d053-edbb-48aa-81a1-fab432c61e3d"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "67a07c3f-6dbf-4d61-a854-2838183312b8",
-    "stepType": "form_open",
-    "procedureId": "3d09c6ec-7b82-4f1c-94db-1d0fd2c3dd6b"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "fecf8ff5-e296-498d-a067-35eb44015eb8",
-    "stepType": "form_open",
-    "procedureId": "7938d053-edbb-48aa-81a1-fab432c61e3d"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "58a1f70a-e721-4cb7-bdb3-ab9b82333418",
-    "stepType": "form_open",
-    "procedureId": "8603ccc4-7486-4d7c-b506-7fa1300cb038"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "767945bf-0ba3-4b77-a0f0-fd36b7ae1b7c",
-    "stepType": "form_open",
-    "procedureId": "51bfa6b2-b2e0-4952-8174-8791d6e51f56"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "f6cbf4d1-af3f-42f2-ae46-dc2ba0409989",
-    "stepType": "form_open",
-    "procedureId": "2aaa04fa-5032-429c-a518-b6f5daedc926"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "2de947c5-d9d2-40d1-a67d-fcf153cc470a",
-    "stepType": "form_open",
-    "procedureId": "1d13ae09-8b14-4b5a-8e2d-e40131c02ce5"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "ec80c912-1442-4e16-80d8-ca60235fe769",
-    "stepType": "form_submit",
-    "procedureId": "51bfa6b2-b2e0-4952-8174-8791d6e51f56"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "226eff41-dbb2-4b50-9fe8-513be4cdc9b7",
-    "stepType": "form_submit",
-    "procedureId": "8603ccc4-7486-4d7c-b506-7fa1300cb038"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "de8fe545-6c5f-4ea6-bac9-493a96cceef3",
-    "stepType": "form_submit",
-    "procedureId": "7938d053-edbb-48aa-81a1-fab432c61e3d"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "9ce595d9-9840-443b-a5c3-256123355c79",
-    "stepType": "form_submit",
-    "procedureId": "3d09c6ec-7b82-4f1c-94db-1d0fd2c3dd6b"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "26ab7e42-3a8c-43aa-bb36-9594fe55d66f",
-    "stepType": "form_submit",
-    "procedureId": "1d13ae09-8b14-4b5a-8e2d-e40131c02ce5"
-  },
-  {
-    "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "e89b9a83-0426-4a91-ab05-ddf8e671802e",
-    "stepType": "form_submit",
-    "procedureId": "2aaa04fa-5032-429c-a518-b6f5daedc926"
+    "procedureId": "4b7a85a5-1177-47f1-8f51-26a47de5c349"
   }
 ];
-  var PROCEDURE_STORAGE_KEY = 'ryndrex_last_procedure_id';
 
-  function getSessionId() {
-    var KEY = 'ryndrex_sid';
-    var EXPIRY_KEY = 'ryndrex_sid_expiry';
-    var now = Date.now();
-    var expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || '0');
-    var existing = localStorage.getItem(KEY);
-    if (!existing || now > expiry) {
-      var id = 'sess_' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
-      localStorage.setItem(KEY, id);
-      localStorage.setItem(EXPIRY_KEY, String(now + 30 * 24 * 60 * 60 * 1000));
-      return id;
-    }
-    return existing;
+  var VISITOR_KEY = 'ryndrex_vid';
+  var VISITOR_EXPIRY_KEY = 'ryndrex_vid_expiry';
+  var SESSION_KEY = 'ryndrex_sid';
+  var SESSION_LAST_KEY = 'ryndrex_sid_last';
+  var PROCEDURE_STORAGE_KEY = 'ryndrex_last_procedure_id';
+  var SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+  var VISITOR_TTL_MS = 365 * 24 * 60 * 60 * 1000;
+
+  // ─── Debug mode ───────────────────────────────────────────────────────
+  var DEBUG = false;
+  try {
+    DEBUG = new URLSearchParams(window.location.search).get('ryndrex_debug') === '1';
+  } catch (e) {}
+
+  function debugLog(eventName, payload, status) {
+    if (!DEBUG) return;
+    try { console.log('[Ryndrex]', eventName, status || '', payload); } catch (e) {}
+    updateDebugBadge(eventName, status);
   }
 
+  var debugBadgeEl = null;
+  var debugLastEvent = '—';
+  var debugLastStatus = '—';
+
+  function ensureDebugBadge() {
+    if (!DEBUG || debugBadgeEl) return;
+    try {
+      debugBadgeEl = document.createElement('div');
+      debugBadgeEl.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:2147483647;background:#0B1D3A;color:#fff;font:12px/1.4 -apple-system,sans-serif;padding:10px 14px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.25);max-width:280px;pointer-events:none;';
+      renderDebugBadge();
+      if (document.body) document.body.appendChild(debugBadgeEl);
+      else document.addEventListener('DOMContentLoaded', function () { document.body.appendChild(debugBadgeEl); });
+    } catch (e) {}
+  }
+
+  function renderDebugBadge() {
+    if (!debugBadgeEl) return;
+    debugBadgeEl.innerHTML =
+      '<div style="font-weight:700;color:#0F7A5C;margin-bottom:4px;">RYNDREX DEBUG</div>' +
+      '<div>clinic: ' + CLINIC_ID.slice(0, 8) + '…</div>' +
+      '<div>visitor: ' + (getVisitorId() || '—').slice(0, 14) + '…</div>' +
+      '<div>session: ' + (getSessionId() || '—').slice(0, 14) + '…</div>' +
+      '<div>last event: ' + debugLastEvent + '</div>' +
+      '<div>last send: ' + debugLastStatus + '</div>';
+  }
+
+  function updateDebugBadge(eventName, status) {
+    if (!DEBUG) return;
+    debugLastEvent = eventName || '—';
+    if (status) debugLastStatus = status;
+    renderDebugBadge();
+  }
+
+  // ─── Identity ─────────────────────────────────────────────────────────
+  function getVisitorId() {
+    try {
+      var now = Date.now();
+      var expiry = parseInt(localStorage.getItem(VISITOR_EXPIRY_KEY) || '0');
+      var existing = localStorage.getItem(VISITOR_KEY);
+      if (!existing || now > expiry) {
+        var id = 'vis_' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+        localStorage.setItem(VISITOR_KEY, id);
+        localStorage.setItem(VISITOR_EXPIRY_KEY, String(now + VISITOR_TTL_MS));
+        return id;
+      }
+      return existing;
+    } catch (e) {
+      return 'vis_anon_' + Math.random().toString(36).slice(2);
+    }
+  }
+
+  function getSessionId() {
+    try {
+      var now = Date.now();
+      var lastActive = parseInt(localStorage.getItem(SESSION_LAST_KEY) || '0');
+      var existing = localStorage.getItem(SESSION_KEY);
+      if (!existing || (now - lastActive) > SESSION_TIMEOUT_MS) {
+        existing = 'sess_' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+        localStorage.setItem(SESSION_KEY, existing);
+      }
+      localStorage.setItem(SESSION_LAST_KEY, String(now));
+      return existing;
+    } catch (e) {
+      return 'sess_anon_' + Math.random().toString(36).slice(2);
+    }
+  }
+
+  // ─── Helpers ──────────────────────────────────────────────────────────
   function getDeviceType() { return window.innerWidth < 768 ? 'mobile' : 'desktop'; }
   function getUTM(param) { return new URLSearchParams(window.location.search).get(param) || null; }
+
   function normalizePath(p) {
     if (!p) return '/';
     try { return p.split('?')[0].split('#')[0].toLowerCase().replace(/\/$/, '') || '/'; }
     catch (e) { return '/'; }
   }
 
-  // Safe suffix match. Ensures pattern has a leading slash so the match
-  // always falls on a path boundary — prevents "/augmentation.html" from
-  // falsely matching "/breast-augmentation.html". Also survives subpath
-  // deployments (GitHub Pages project sites, locale prefixes, staging paths).
   function pathMatches(current, pattern) {
     if (current === pattern) return true;
     var p = pattern.charAt(0) === '/' ? pattern : '/' + pattern;
     return current.length > p.length && current.slice(-p.length) === p;
+  }
+
+  function isConsultationLink(href) {
+    if (!href) return false;
+    try {
+      var resolved = new URL(href, window.location.href);
+      return pathMatches(normalizePath(resolved.pathname), normalizePath(CONSULTATION_PATH));
+    } catch (e) {
+      return pathMatches(normalizePath(href), normalizePath(CONSULTATION_PATH));
+    }
   }
 
   function matchCurrentPage() {
@@ -201,13 +164,11 @@
     for (var i = 0; i < FUNNEL_PAGES.length; i++) {
       if (pathMatches(current, normalizePath(FUNNEL_PAGES[i].urlPattern))) {
         if (FUNNEL_PAGES[i].stepType === 'procedure_page_view') {
-          // Procedure page hit — store this procedure's UUID for attribution
           if (FUNNEL_PAGES[i].procedureId) {
             try { sessionStorage.setItem(PROCEDURE_STORAGE_KEY, FUNNEL_PAGES[i].procedureId); } catch (e) {}
           }
           return FUNNEL_PAGES[i];
         }
-        // Shared page — take the first match only
         if (!firstSharedMatch) firstSharedMatch = FUNNEL_PAGES[i];
       }
     }
@@ -218,79 +179,208 @@
     try { return sessionStorage.getItem(PROCEDURE_STORAGE_KEY) || null; } catch (e) { return null; }
   }
 
-  function sendEvent(eventType, pageId, metadata, keepalive) {
-    var payload = {
-      clinic_id: CLINIC_ID, page_id: pageId || null, session_id: getSessionId(),
-      event_type: eventType, device_type: getDeviceType(),
-      utm_source: getUTM('utm_source'), utm_medium: getUTM('utm_medium'), utm_campaign: getUTM('utm_campaign'),
-      occurred_at: new Date().toISOString(), metadata: metadata || null,
+  // ─── Event transport ──────────────────────────────────────────────────
+  function buildPayload(eventType, pageId, metadata) {
+    return {
+      clinic_id: CLINIC_ID,
+      page_id: pageId || null,
+      page_path: normalizePath(window.location.pathname),
+      session_id: getSessionId(),
+      event_type: eventType,
+      device_type: getDeviceType(),
+      utm_source: getUTM('utm_source'),
+      utm_medium: getUTM('utm_medium'),
+      utm_campaign: getUTM('utm_campaign'),
+      occurred_at: new Date().toISOString(),
+      metadata: Object.assign({ visitor_id: getVisitorId() }, metadata || {}),
       procedure_id: getStoredProcedureId()
     };
-    try {
-      fetch(SUPABASE_URL + '/rest/v1/events', {
-        method: 'POST', keepalive: keepalive === true,
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Prefer': 'return=minimal' },
-        body: JSON.stringify(payload)
-      }).catch(function () {});
-    } catch (e) {}
   }
 
-  var currentPage = matchCurrentPage();
-  var viewport = { width: window.innerWidth, height: window.innerHeight };
-  var pageStartTime = Date.now();
-  var maxScrollPct = 0;
-
-  // Only fire page-load event for page views and gallery views
-  // form_open and form_submit are interaction events — they fire on user action, not page load
-  if (currentPage) {
-    var loadStepType = currentPage.stepType;
-    if (loadStepType === 'procedure_page_view' || loadStepType === 'gallery_view' || loadStepType === 'financing_page_view') {
-      sendEvent(loadStepType, currentPage.pageId, { viewport: viewport });
+  function sendEvent(eventType, pageId, metadata) {
+    var payload = buildPayload(eventType, pageId, metadata);
+    var url = SUPABASE_URL + '/rest/v1/events';
+    debugLog(eventType, payload, 'sending…');
+    try {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        debugLog(eventType, payload, r.ok ? (r.status + ' OK') : (r.status + ' FAIL'));
+      }).catch(function () {
+        debugLog(eventType, payload, 'network error');
+      });
+    } catch (e) {
+      debugLog(eventType, payload, 'exception');
     }
   }
 
-  if (currentPage) {
-    window.addEventListener('scroll', function () {
-      var scrolled = window.scrollY || window.pageYOffset;
-      var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
-      if (docHeight > 0) { var pct = Math.round((scrolled / docHeight) * 100); if (pct > maxScrollPct) maxScrollPct = pct; }
-    }, { passive: true });
+  function sendEventBeacon(eventType, pageId, metadata) {
+    var payload = buildPayload(eventType, pageId, metadata);
+    debugLog(eventType, payload, 'sending (keepalive)…');
+    try {
+      fetch(SUPABASE_URL + '/rest/v1/events', {
+        method: 'POST',
+        keepalive: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        debugLog(eventType, payload, r.ok ? (r.status + ' OK (keepalive)') : (r.status + ' FAIL (keepalive)'));
+      }).catch(function () {
+        debugLog(eventType, payload, 'keepalive network error');
+      });
+    } catch (e) {
+      debugLog(eventType, payload, 'keepalive exception');
+    }
   }
 
-  // Wrap form listeners in DOMContentLoaded so they attach after the DOM exists
-  // Without this, querySelectorAll finds zero elements when script is in <head>
-  document.addEventListener('DOMContentLoaded', function () {
+  // ─── Page tracking state ──────────────────────────────────────────────
+  var lastTrackedPath = null;
+  var currentPage = null;
+  var pageStartTime = Date.now();
+  var maxScrollPct = 0;
+  var formListenersAttached = false;
+  var scrollListenerAttached = false;
+  var pagehideListenerAttached = false;
+  var formOpened = false;
+
+  function flushCurrentPageExit(reason) {
+    if (!currentPage) return;
+    var timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
+    sendEventBeacon('page_exit', currentPage.pageId, {
+      scroll_depth_pct: maxScrollPct,
+      time_on_page_sec: timeOnPage,
+      viewport: { width: window.innerWidth, height: window.innerHeight },
+      reason: reason
+    });
+  }
+
+  function trackCurrentPage() {
+    var path = normalizePath(window.location.pathname);
+    if (path === lastTrackedPath) return; // dedupe within same path
+
+    // Flush exit event for previous funnel page before resetting state
+    flushCurrentPageExit('spa_navigation');
+
+    lastTrackedPath = path;
+    formOpened = false;
+    pageStartTime = Date.now();
+    maxScrollPct = 0;
+
+    // Always fire generic pageview — site-wide, not funnel-gated
+    sendEvent('pageview', null, { viewport: { width: window.innerWidth, height: window.innerHeight } });
+
+    // Also fire funnel-stage event if this path matches a configured funnel page
+    currentPage = matchCurrentPage();
     if (currentPage) {
-      var formOpened = false;
+      var st = currentPage.stepType;
+      if (st === 'procedure_page_view' || st === 'gallery_view' || st === 'financing_page_view') {
+        sendEvent(st, currentPage.pageId, { viewport: { width: window.innerWidth, height: window.innerHeight } });
+      }
+      attachFormListeners();
+      attachScrollListener();
+      attachPagehideListener();
+    }
+  }
+
+  function attachFormListeners() {
+    if (formListenersAttached) return;
+    formListenersAttached = true;
+
+    function bindInputs() {
       var inputs = document.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]), textarea, select');
       for (var i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener('focus', function () {
-          if (!formOpened) { formOpened = true; sendEvent('form_open', currentPage.pageId, null); }
+          if (!formOpened && currentPage) { formOpened = true; sendEvent('form_open', currentPage.pageId, null); }
         }, { once: true });
       }
       var forms = document.querySelectorAll('form');
       for (var j = 0; j < forms.length; j++) {
-        forms[j].addEventListener('submit', function () { sendEvent('form_submit', currentPage.pageId, null); });
+        forms[j].addEventListener('submit', function () {
+          if (currentPage) sendEvent('form_submit', currentPage.pageId, null);
+        });
       }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindInputs);
+    } else {
+      bindInputs();
+    }
+  }
+
+  function attachScrollListener() {
+    if (scrollListenerAttached) return;
+    scrollListenerAttached = true;
+    window.addEventListener('scroll', function () {
+      var scrolled = window.scrollY || window.pageYOffset;
+      var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+      if (docHeight > 0) {
+        var pct = Math.round((scrolled / docHeight) * 100);
+        if (pct > maxScrollPct) maxScrollPct = pct;
+      }
+    }, { passive: true });
+  }
+
+  function attachPagehideListener() {
+    if (pagehideListenerAttached) return;
+    pagehideListenerAttached = true;
+    window.addEventListener('pagehide', function () {
+      flushCurrentPageExit('pagehide');
+    });
+  }
+
+  // ─── SPA navigation handling ──────────────────────────────────────────
+  (function patchHistory() {
+    try {
+      var origPush = history.pushState;
+      history.pushState = function () {
+        origPush.apply(this, arguments);
+        window.dispatchEvent(new Event('ryndrex:nav'));
+      };
+      var origReplace = history.replaceState;
+      history.replaceState = function () {
+        origReplace.apply(this, arguments);
+        window.dispatchEvent(new Event('ryndrex:nav'));
+      };
+      window.addEventListener('popstate', function () {
+        window.dispatchEvent(new Event('ryndrex:nav'));
+      });
+    } catch (e) {}
+  })();
+
+  window.addEventListener('ryndrex:nav', function () {
+    // Delay to let SPA finish rendering new DOM
+    setTimeout(trackCurrentPage, 250);
+  });
+
+  // ─── Click handlers (always-on, regardless of current page) ───────────
+  document.addEventListener('click', function (e) {
+    var tel = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+    if (tel) {
+      sendEvent('phone_click', currentPage ? currentPage.pageId : null, null);
+      return;
+    }
+    var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (link && isConsultationLink(link.getAttribute('href'))) {
+      sendEvent('cta_click', currentPage ? currentPage.pageId : null, null);
     }
   });
 
-  document.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
-    if (el) { sendEvent('phone_click', currentPage ? currentPage.pageId : null, null); }
-  });
-
-  document.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-    if (el && isConsultationLink(el.getAttribute('href'))) { sendEvent('cta_click', currentPage ? currentPage.pageId : null, null); }
-  });
-
-  if (currentPage) {
-    window.addEventListener('pagehide', function () {
-      var timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
-      sendEvent('page_exit', currentPage.pageId, { scroll_depth_pct: maxScrollPct, time_on_page_sec: timeOnPage, viewport: viewport }, true);
-    });
-  }
+  // ─── Boot ─────────────────────────────────────────────────────────────
+  ensureDebugBadge();
+  trackCurrentPage();
 
 })();
 </script>
