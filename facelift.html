@@ -21,26 +21,26 @@
   var FUNNEL_PAGES = [
   {
     "urlPattern": "/ryndrex-test-clinic-website/facelift.html",
-    "pageId": "52833b15-5ab0-4814-90b1-a9074a093064",
+    "pageId": "b88e16ad-4a21-4758-ad34-ed1fda9554bf",
     "stepType": "procedure_page_view",
     "procedureId": "4b7a85a5-1177-47f1-8f51-26a47de5c349"
   },
   {
     "urlPattern": "/ryndrex-test-clinic-website/rhinoplasty.html",
-    "pageId": "f6e2c408-29c2-45bb-abae-a228a9e4bc06",
+    "pageId": "387444b2-290c-4294-90a0-8b56fc957f95",
     "stepType": "procedure_page_view",
     "procedureId": "1d618609-0ec4-4594-98d2-1bc32965d548"
   },
   {
     "urlPattern": "/ryndrex-test-clinic-website/gallery.html",
-    "pageId": "60d74fe2-d99d-4621-b6bd-31e1f893ee39",
-    "stepType": "procedure_page_view",
+    "pageId": "2f6006b1-b220-4021-8ab2-dd819aa67a63",
+    "stepType": "gallery_view",
     "procedureId": "4b7a85a5-1177-47f1-8f51-26a47de5c349"
   },
   {
     "urlPattern": "/ryndrex-test-clinic-website/consultation.html",
-    "pageId": "9a1400d0-4157-423d-b473-d0569f17e6ba",
-    "stepType": "procedure_page_view",
+    "pageId": "e658e0f1-4075-4f91-af60-f413dd4d23f0",
+    "stepType": "consultation_viewed",
     "procedureId": "4b7a85a5-1177-47f1-8f51-26a47de5c349"
   }
 ];
@@ -285,7 +285,7 @@
     currentPage = matchCurrentPage();
     if (currentPage) {
       var st = currentPage.stepType;
-      if (st === 'procedure_page_view' || st === 'gallery_view' || st === 'financing_page_view') {
+      if (st === 'procedure_page_view' || st === 'gallery_view' || st === 'financing_page_view' || st === 'consultation_viewed') {
         sendEvent(st, currentPage.pageId, { viewport: { width: window.innerWidth, height: window.innerHeight } });
       }
       attachFormListeners();
